@@ -1,37 +1,32 @@
-//1
-#PersonaInternauta >> UsuarioRegistrado = new Usuario()
-canal = new Canal()
-UsuarioRegistrado.setCanal(canal)
+#Usuario >> new Usuario()
 
-//2
-#PersonaAdministradora >> transmision = new Transmision(titulo, categoria)
+#Usuario >> crearCanal()
+    new Canal()
 
-canal.iniciarTransmision(transmision)
+#Canal >> iniciarTransmision(transmision)
 if(canal.getStreamEnCurso() == null) {
 canal.setStreamEnCurso(transmision)
 }
 
-canal.finalizarTransmision(transmision)
+#Canal >> finalizarTransmision(transmision)
 canal.setStreamEnCurso(null)
 canal.agregarTransmisionHistorica(transmision)
 
-//3
 
-//4
-#UsuarioRegistrado >> canal.agregarSuscriptor(Usuario usuario)
+#Canal >> agregarSuscriptor(Usuario usuario)
     this.suscriptores.add(usuario);
 
-#UsuarioRegistrado >> canal.darMuestraDeApoyo(Int valorSimbolico)
+#Canal >> darMuestraDeApoyo(Int valorSimbolico)
         this.apoyoDelPublico += valorSimbolico;
 
-//5
-#UsuarioRegistrado >> transmision.unirUsuario(Usuario usuario)
+
+#Transmision >> unirUsuario(Usuario usuario)
     transmision.viewers.add(usuario);
     transmision.checkearValorMaximoViewers();
 
-//6
-#ParticipanteStream >> transmision.enviarMensaje(Mensaje mensaje)
+
+#Transmision >> enviarMensaje(Mensaje mensaje)
     transmision.mensajes.add(mensaje)
 
-#ParticipanteStream >> transmision.verMensajes()
+#Transmision >> verMensajes()
     return transmision.mensajes

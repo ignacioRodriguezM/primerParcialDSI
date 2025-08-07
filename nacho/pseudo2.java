@@ -1,32 +1,48 @@
+//primer requerimiento
 #Usuario >> new Usuario()
 
-#Usuario >> crearCanal()
-    new Canal()
+#Usuario >> new Canal(Usuario usuarioDueñoDelCanal)
+//chequear el primer requerimiento
 
+//segundo requerimiento
 #Canal >> iniciarTransmision(transmision)
-if(canal.getStreamEnCurso() == null) {
-canal.setStreamEnCurso(transmision)
+if(streamEnCurso == null) { //no puede haber + de 1 por canal
+streamEnCurso = transmision;
 }
 
-#Canal >> finalizarTransmision(transmision)
-canal.setStreamEnCurso(null)
-canal.agregarTransmisionHistorica(transmision)
+#Canal >> finalizarTransmision()
+if(streamEnCurso != null) {
+transmisionesPasadas.agregarTransmisionHistorica(streamEnCurso);
+streamEnCurso = null;
+}
 
+//tercer requerimiento
+#TransmisionesPasadas >> listarTransmisionesHistoricas()
+    return this.transmisionesPasadas;
+//falta transmisiones en curso y listar canales (posible repo)
+#RepositorioCanales >> listarCanales()
+    return this.canales;
+#RepositorioCanales >> listarTransmisionesEnCurso()
+    return canales.stream()
+        .filter(canal -> canal.streamEnCurso != null)
+        .map(canal -> canal.streamEnCurso)
+        .collect(Collectors.toList());
 
-#Canal >> agregarSuscriptor(Usuario usuario)
+//cuarto requerimiento
+#Suscriptores >> agregarSuscriptor(Usuario usuario)
     this.suscriptores.add(usuario);
 
-#Canal >> darMuestraDeApoyo(Int valorSimbolico)
+#Canal >> darMuestraDeApoyoAnonima(Int valorSimbolico)
         this.apoyoDelPublico += valorSimbolico;
 
+//quinto requerimiento
+#Audiencia >> unirUsuario(Usuario usuario)
+    audiencia.viewers.add(usuario);
+    audiencia.checkearValorMaximoViewers();
 
-#Transmision >> unirUsuario(Usuario usuario)
-    transmision.viewers.add(usuario);
-    transmision.checkearValorMaximoViewers();
+//sexto requerimiento
+#Chat >> enviarMensaje(Mensaje mensaje)
+        chat.mensajes.add(mensaje)
 
-
-#Transmision >> enviarMensaje(Mensaje mensaje)
-    transmision.mensajes.add(mensaje)
-
-#Transmision >> verMensajes()
-    return transmision.mensajes
+#Chat >> verMensajes()
+    return chat.mensajes

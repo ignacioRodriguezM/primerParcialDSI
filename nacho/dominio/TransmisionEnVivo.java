@@ -2,7 +2,12 @@ public class TransmisionEnVivo extends Transmision {
     private List<Usuario> espectadores;
 
     public TransmisionEnVivo(String titulo) {
-        super(titulo);
+        this.titulo = titulo;
+        this.categorias = new ArrayList<>();
+        this.fechaInicio = LocalDateTime.now();
+        this.horaInicio = LocalTime.now();
+        this.maximosEspectadores = 0;
+        this.chat = new ArrayList<>();
         this.espectadores = new ArrayList<>();
     }
     public TransmisionFinalizada finalizar() {

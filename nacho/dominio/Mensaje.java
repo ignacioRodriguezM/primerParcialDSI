@@ -14,4 +14,7 @@ public class Mensaje {
     public String getContenido() {
         return contenido;
     }
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
 }

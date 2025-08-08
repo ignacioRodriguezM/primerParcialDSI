@@ -6,15 +6,6 @@ public abstract class Transmision {
     private List<Mensaje> chat;
     private Int maximosEspectadores;
 
-    public Transmision(String titulo) {
-        this.titulo = titulo;
-        this.categorias = new ArrayList<>();
-        this.fechaInicio = LocalDateTime.now();
-        this.horaInicio = Time.valueOf(LocalTime.now());
-        this.chat = new ArrayList<>();
-        this.maximosEspectadores = 0;
-    }
-
     public LocalDateTime getFechaInicio() {
         return fechaInicio;
     }
